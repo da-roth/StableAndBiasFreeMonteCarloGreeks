@@ -4,7 +4,7 @@ In the realm of financial derivatives, accurate and stable computation of sensit
 
 In recent years, automatic differentiation (AAD) has gained significant popularity for computing sensitivities, or Greeks, of financial derivatives. This method promises higher efficiency and accuracy compared to traditional finite difference (FD) approaches. Meanwhile, finite differences are still widely used in many established pricing systems, often employing the bump-and-reval technique to obtain Greeks. However, when applied to Monte Carlo simulations, particularly for options with discontinuous payoffs, both methods have their own sets of challenges and intricacies.
 
-In this blog/repo, I want to look at various examples that illustrate the problem and also explore different approaches to overcome these issues. As a motivational example, let us directly study the issues of both methods when naively implementing a standard Monte Carlo estimator for simple digital options.
+Here, I'll look at various examples that illustrate the problem and also explore different approaches to overcome these issues. As a motivational example, let us directly study the issues of both methods when naively implementing a standard Monte Carlo estimator for simple digital options.
 
 ## 0. Introductary Example: Digital call option present value and Delta
 
@@ -69,6 +69,8 @@ Using this improved Monte Carlo estimator, we receive the following results for 
 <img src="images/deltaAdvanced.png" alt="present value comparison" width="400" height="300">
 
 The images can be reproduced by executing the code given in this [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/ExampleIntrodcutoryContinued/example_continued_Colab.ipynb). It's relatively easy to show that the improved Monte Carlo estimator meets the assumptions of the theorem on stable Greeks by FD formulated by Alm et al., and hence the stable Delta by FD is not surprising. Furthermore, the improved Monte Carlo estimator indeed seems to allow for bias-free AAD.
+
+## 3. 
 
 
 
