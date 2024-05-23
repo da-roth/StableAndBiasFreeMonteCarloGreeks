@@ -74,7 +74,9 @@ The images can be reproduced by executing the code given in this [Colab notebook
 
 Let's investigate the behaviour of FD and AAD for an up-and-out continuously-monitored barrier option call option. For the chosen parameters and to re-produce the results please check the [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/ExampleBarrier/example_barrier_Colab.ipynb).
 While I'll skip the investigation of the present value, the first property I'd like to point out here is as follows. Studying the results for Delta of FD and AAD, we get:
+
 <img src="images/deltaBarrierStandard.png" alt="present value comparison" width="400" height="300">
+
 While again FD leads to instabilities, AAD is biased in such a way that it might even have the wrong sign. The explanation is rather intuitive: While in general an increasing asset value S has positive impact on the 'vanilla' part of the payoff max(S-K,0), the AAD tool doesn't account in that an increasing asset value results in a greater knock-out probability. Hence, path that survived (not crossed the barrier), will always have positive Delta using standard AAD tools. 
 
 For barrier options, the commonly used Brownian-bridge approach, see e.g. [here](https://arxiv.org/abs/1906.11002) and reference therein, leads to the following results for Delta:
@@ -84,4 +86,6 @@ For barrier options, the commonly used Brownian-bridge approach, see e.g. [here]
 However, as investigated in ["Convergence of Milstein Brownian bridge Monte Carlo methods and stable Greeks calculation"](https://arxiv.org/abs/1906.11002), the Brownian-Bridge correction, doesn't allow for stable second-order Greeks. To get second-order Greeks through AAD, it is common to use finite differences on two evaluation of Delta. The following image, demonstrates Gamma through FD and AAD:
 
 <img src="images/gammaBarrierBB.png" alt="present value comparison" width="400" height="300">
+
+Hence, the Brownian-bridge correction, doesn't allow for stable Gamma for barrier options. Furthermore, the AAD approach (finite differences of AAD Deltas) leads to instabilities, too.
 
