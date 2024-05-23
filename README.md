@@ -89,3 +89,10 @@ However, as investigated in ["Convergence of Milstein Brownian bridge Monte Carl
 
 Hence, the Brownian-bridge correction, doesn't allow for stable Gamma for barrier options. Furthermore, the AAD approach (finite differences of AAD Deltas) leads to instabilities, too.
 
+If we use the newly propsed Monte Carlo estimator of ["Convergence of Milstein Brownian bridge Monte Carlo methods and stable Greeks calculation"](https://arxiv.org/abs/1906.11002), we get the following results for Gamma:
+
+
+Hence, the estimator not only allows for stabile Gamma through FD, but also results in stable Gamma through AAD.
+
+<img src="images/gammaBarrierOSS.png" alt="present value comparison" width="400" height="300">
+
