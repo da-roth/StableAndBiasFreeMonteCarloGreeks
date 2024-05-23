@@ -81,6 +81,7 @@ For barrier options, the commonly used Brownian-bridge approach, see e.g. [here]
 
 <img src="images/deltaBarrierBB.png" alt="present value comparison" width="400" height="300">
 
-However, as investigated in ["Convergence of Milstein Brownian bridge Monte Carlo methods and stable Greeks calculation"](https://arxiv.org/abs/1906.11002), the Brownian-Bridge correction, doesn't allow for stable second-order Greeks. 
+However, as investigated in ["Convergence of Milstein Brownian bridge Monte Carlo methods and stable Greeks calculation"](https://arxiv.org/abs/1906.11002), the Brownian-Bridge correction, doesn't allow for stable second-order Greeks. To get second-order Greeks through AAD, it is common to use finite differences on two evaluation of Delta. The following image, demonstrates Gamma through FD and AAD:
 
+<img src="images/gammaBarrierBB.png" alt="present value comparison" width="400" height="300">
 
