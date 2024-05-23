@@ -70,7 +70,14 @@ Using this improved Monte Carlo estimator, we receive the following results for 
 
 The images can be reproduced by executing the code given in this [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/ExampleIntrodcutoryContinued/example_continued_Colab.ipynb). It's relatively easy to show that the improved Monte Carlo estimator meets the assumptions of the theorem on stable Greeks by FD formulated by Alm et al., and hence the stable Delta by FD is not surprising. Furthermore, the improved Monte Carlo estimator indeed seems to allow for bias-free AAD.
 
-## 3. 
+## 3. Example: Barrier options
 
+Let's investigate the behaviour of FD and AAD for an up-and-out continuously-monitored barrier option call option. For the chosen parameters and to re-produce the results please check the [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/ExampleBarrier/example_barrier_Colab.ipynb).
+While I'll skip the investigation of the present value, the first property I'd like to point out here is as follows. Studying the results for Delta of FD and AAD, we get:
+<img src="images/deltaBarrierStandard.png" alt="present value comparison" width="400" height="300">
+While again FD leads to instabilities, AAD is biased in such a way that it might even have the wrong sign. The explanation is rather intuitive: While in general an increasing asset value S has positive impact on the 'vanilla' part of the payoff max(S-K,0), the AAD tool doesn't account in that an increasing asset value results in a greater knock-out probability. Hence, path that survived (not crossed the barrier), will always have positive Delta using standard AAD tools. 
+
+For barrier options, the commonly used Brownian-bridge approach, see e.g. [here](https://arxiv.org/abs/1906.11002) and reference therein, leads to the following results for Delta:
+<img src="images/deltaBarrierBB.png" alt="present value comparison" width="400" height="300">
 
 
