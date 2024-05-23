@@ -78,6 +78,9 @@ While I'll skip the investigation of the present value, the first property I'd l
 While again FD leads to instabilities, AAD is biased in such a way that it might even have the wrong sign. The explanation is rather intuitive: While in general an increasing asset value S has positive impact on the 'vanilla' part of the payoff max(S-K,0), the AAD tool doesn't account in that an increasing asset value results in a greater knock-out probability. Hence, path that survived (not crossed the barrier), will always have positive Delta using standard AAD tools. 
 
 For barrier options, the commonly used Brownian-bridge approach, see e.g. [here](https://arxiv.org/abs/1906.11002) and reference therein, leads to the following results for Delta:
+
 <img src="images/deltaBarrierBB.png" alt="present value comparison" width="400" height="300">
+
+However, as investigated in ["Convergence of Milstein Brownian bridge Monte Carlo methods and stable Greeks calculation"](https://arxiv.org/abs/1906.11002), the Brownian-Bridge correction, doesn't allow for stable second-order Greeks. 
 
 
