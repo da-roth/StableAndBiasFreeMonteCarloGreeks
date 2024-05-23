@@ -96,3 +96,5 @@ Hence, the estimator not only allows for stabile Gamma through FD, but also resu
 
 <img src="images/gammaBarrierOSS.png" alt="present value comparison" width="400" height="300">
 
+Again, see this [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/ExampleBarrier/example_barrier_Colab.ipynb) to reproduce all the results.
+
