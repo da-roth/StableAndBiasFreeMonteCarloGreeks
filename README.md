@@ -23,7 +23,7 @@ Consider the Black-Scholes model allowing for a closed solution of a digital ass
     | h         | finite dif. para. | 0.0001   |
 
 
-Please check the [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/IntroductoryExample/introductory_example_Colab.ipynb) to reproduce the results of the following images.
+Please check the [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/IntroductoryExample/introductory_example_Colab.ipynb) to reproduce the results of the following images. The notebooks use PyTorch as the AAD framework.
 
 ### Present value comparison
 
@@ -57,7 +57,7 @@ Let me highlight the key contributions from the literature that have shaped my i
     The blue line demonstrates the bias of the standard Monte Carlo estimator for AAD and the red-dots the instability of FD. For the relation of the FD shift size (plus the amount of Monte Carlo samples) and the degree of instability, please check the descriptions within the above mentioned works. Please check the [homepage](http://christian-fries.de/finmath/stochasticautodiff/) of the author, for further reading on stochastic automatic differentiation.
 
 
- Stochastic automatic differentiation allows the user to have reasonable results even if inputing payoffs (e.g. with indicator functions) that would typically lead to biased-results. However,by construction, it is restricted to the specific set classes that were implemented. For example, consider the two-dimensional autocallable case within ["A Monte Carlo pricing algorithm for autocallables that allows for stable differentiation."](https://www.math.uni-frankfurt.de/~harrach/publications/StableDiffs.pdf). Here, we'd have to add the proposed transformation and perhaps a specific node on the graph that would allow the support of these kind of instruments.
+ Stochastic automatic differentiation allows the user to have reasonable results even if inputing payoffs (e.g. with indicator functions) that would typically lead to biased-results. However, by construction, it is restricted to the specific set classes that were implemented. For example, consider the two-dimensional autocallable case within ["A Monte Carlo pricing algorithm for autocallables that allows for stable differentiation."](https://www.math.uni-frankfurt.de/~harrach/publications/StableDiffs.pdf). Here, we'd have to add the proposed transformation and perhaps a specific node on the graph that would allow the support of these kind of instruments.
 
 All in all, taking all these considerations into account, one topic I'll investigate in the following it the question on how to create new Monte Carlo estimators, that allow for bias-free Greeks using standard AAD.
 
@@ -97,4 +97,33 @@ Hence, the estimator not only allows for stabile Gamma through FD, but also resu
 <img src="images/gammaBarrierOSS.png" alt="present value comparison" width="400" height="300">
 
 Again, see this [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/ExampleBarrier/example_barrier_Colab.ipynb) to reproduce all the results.
+
+Summary: 
+    1. While the payoff of the barrier option has a discontinuity 
+
+    <img src="images/payoffBarrier.png" alt="present value comparison" width="400" height="300">
+
+    given through max(S) < B, the standard Monte Carlo estimator for this payoff would lead to instabilities (FD) and a bias (AAD). 
+
+    2. In contrast, a Monte Carlo estimator incorporating the Brownian-bridge correction, leads to stable (FD) and bias-free (AAD) first order Greeks. Furthermore, due to its construction one might also define a pathwise-sensitivities estimator, see e.g. section 7 [here](http://people.maths.ox.ac.uk/~gilesm/files/sylvestre_thesis.pdf). However, the Brownian-bridge corrected Monte Carlo estimator doesn't allow for stable (FD) nor for bias-free (AAD) Greeks, since the incorporated crossing probabilities, given by
+
+    <img src="images/bbProbability.png" alt="present value comparison" width="400" height="300">
+
+    lead to a discontinuity within the first derivative, see e.g. (7.7) [here](http://people.maths.ox.ac.uk/~gilesm/files/sylvestre_thesis.pdf). 
+
+    3. As seen in above's example, the Monte Carlo estimator proposed in ["Convergence of Milstein Brownian bridge Monte Carlo methods and stable Greeks calculation"](https://arxiv.org/abs/1906.11002), which allows for stable second-order Greeks through FD, also produced bias-free Greeks through AAD. As mentioned in the article, the estimator would also allow the usage of a pathwise sensitivities estimator, since it also got rid of the discontinuity of the first derivative. 
+
+
+## 4. Connection of stable Greeks through FD and bias-free Greeks through AAD
+
+Above's example for barrier options gives us a good intuition on the requirements of a Monte Carlo estimator to allow for bias-free Greeks through AAD. The intuitive explanation of the connection is as follows: A Monte Carlo estimator allows for bias-free Greeks up to a certain degree, if it is capable of computing these Greeks through a pathwise-sensitivity algorithm. The studies in ["Convergence of Milstein Brownian bridge Monte Carlo methods and stable Greeks calculation"](https://arxiv.org/abs/1906.11002) indicate that this is the case if the Monte Carlo estimator allows for stable Greeks through FD.
+
+While the creation of the pathwise sensitivities calculator for these options is rather time-consuming, one might prefer to create the Monte Carlo estimator in such a way that it allows for bias-free AAD and then use an AAD framework instead of implementing the pathwise-sensitivity algorithm, in practice. 
+
+If a stocastic AAD framework should handle the standard Monte Carlo estimator as an input and still be able to produce stable second-order Greeks, it would require to automatically handle the two arising discontinuities - in such a way as the Brownian-bridge correction and the one-step survival correction do. Also being time-consuming, it might be usable for other types of options, such as other types of barrier options (knock-in, knock-down-in/out etc.), as well e.g. for Bermudan American options, as studies in one of the articles by [Fries](http://christian-fries.de/finmath/stochasticautodiff/) and hence having some nice potential.
+
+
+
+
+
 
