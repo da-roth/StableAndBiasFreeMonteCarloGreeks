@@ -101,13 +101,13 @@ Again, see this [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMon
 Summary: 
 1. While the payoff of the barrier option has a discontinuity 
 
-<img src="images/payoffBarrier.png" alt="present value comparison" width="400" height="300">
+<img src="images/payoffBarrier.png">
 
 given through max(S) < B, the standard Monte Carlo estimator for this payoff would lead to instabilities (FD) and a bias (AAD). 
 
 2. In contrast, a Monte Carlo estimator incorporating the Brownian-bridge correction, leads to stable (FD) and bias-free (AAD) first order Greeks. Furthermore, due to its construction one might also define a pathwise-sensitivities estimator, see e.g. section 7 [here](http://people.maths.ox.ac.uk/~gilesm/files/sylvestre_thesis.pdf). However, the Brownian-bridge corrected Monte Carlo estimator doesn't allow for stable (FD) nor for bias-free (AAD) Greeks, since the incorporated crossing probabilities, given by
 
-<img src="images/bbProbability.png" alt="present value comparison" width="400" height="300">
+<img src="images/bbProbability.png">
 
 lead to a discontinuity within the first derivative, see e.g. (7.7) [here](http://people.maths.ox.ac.uk/~gilesm/files/sylvestre_thesis.pdf). 
 
