@@ -99,19 +99,19 @@ Hence, the estimator not only allows for stabile Gamma through FD, but also resu
 Again, see this [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/ExampleBarrier/example_barrier_Colab.ipynb) to reproduce all the results.
 
 Summary: 
-    1. While the payoff of the barrier option has a discontinuity 
+1. While the payoff of the barrier option has a discontinuity 
 
-    <img src="images/payoffBarrier.png" alt="present value comparison" width="400" height="300">
+<img src="images/payoffBarrier.png" alt="present value comparison" width="400" height="300">
 
-    given through max(S) < B, the standard Monte Carlo estimator for this payoff would lead to instabilities (FD) and a bias (AAD). 
+given through max(S) < B, the standard Monte Carlo estimator for this payoff would lead to instabilities (FD) and a bias (AAD). 
 
-    2. In contrast, a Monte Carlo estimator incorporating the Brownian-bridge correction, leads to stable (FD) and bias-free (AAD) first order Greeks. Furthermore, due to its construction one might also define a pathwise-sensitivities estimator, see e.g. section 7 [here](http://people.maths.ox.ac.uk/~gilesm/files/sylvestre_thesis.pdf). However, the Brownian-bridge corrected Monte Carlo estimator doesn't allow for stable (FD) nor for bias-free (AAD) Greeks, since the incorporated crossing probabilities, given by
+2. In contrast, a Monte Carlo estimator incorporating the Brownian-bridge correction, leads to stable (FD) and bias-free (AAD) first order Greeks. Furthermore, due to its construction one might also define a pathwise-sensitivities estimator, see e.g. section 7 [here](http://people.maths.ox.ac.uk/~gilesm/files/sylvestre_thesis.pdf). However, the Brownian-bridge corrected Monte Carlo estimator doesn't allow for stable (FD) nor for bias-free (AAD) Greeks, since the incorporated crossing probabilities, given by
 
-    <img src="images/bbProbability.png" alt="present value comparison" width="400" height="300">
+<img src="images/bbProbability.png" alt="present value comparison" width="400" height="300">
 
-    lead to a discontinuity within the first derivative, see e.g. (7.7) [here](http://people.maths.ox.ac.uk/~gilesm/files/sylvestre_thesis.pdf). 
+lead to a discontinuity within the first derivative, see e.g. (7.7) [here](http://people.maths.ox.ac.uk/~gilesm/files/sylvestre_thesis.pdf). 
 
-    3. As seen in above's example, the Monte Carlo estimator proposed in ["Convergence of Milstein Brownian bridge Monte Carlo methods and stable Greeks calculation"](https://arxiv.org/abs/1906.11002), which allows for stable second-order Greeks through FD, also produced bias-free Greeks through AAD. As mentioned in the article, the estimator would also allow the usage of a pathwise sensitivities estimator, since it also got rid of the discontinuity of the first derivative. 
+3. As seen in above's example, the Monte Carlo estimator proposed in ["Convergence of Milstein Brownian bridge Monte Carlo methods and stable Greeks calculation"](https://arxiv.org/abs/1906.11002), which allows for stable second-order Greeks through FD, also produced bias-free Greeks through AAD. As mentioned in the article, the estimator would also allow the usage of a pathwise sensitivities estimator, since it also got rid of the discontinuity of the first derivative. 
 
 
 ## 4. Connection of stable Greeks through FD and bias-free Greeks through AAD
