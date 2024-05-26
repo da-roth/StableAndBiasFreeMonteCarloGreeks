@@ -48,7 +48,7 @@ Let me highlight the key contributions from the literature that have shaped my i
 
 All in all, taking all these considerations into account, one topic I'll investigate in the following it the question on how to create new Monte Carlo estimators, that allow for bias-free Greeks using standard AAD.
 
-## 2. Example: (Continuation of Introductary Example) and barrier options
+## 2. Example: Continuation of digital call and barrier options
 
 Instead of using the standard Monte Carlo estimator for digital options, let us use the well-known conditional expectation transformation, see e.g. [Monte Carlo methods in financial engineering](https://link.springer.com/book/10.1007/978-0-387-21617-1) by Glasserman.
 Using this improved Monte Carlo estimator, we receive the following results for Delta:
