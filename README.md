@@ -8,22 +8,9 @@ Here, I'll look at various examples that illustrate the problem and also explore
 
 ## 0. Introductary Example: Digital call option present value and Delta
 
-Consider the Black-Scholes model allowing for a closed solution of a digital asset or nothing (up-and-in) option. Furthermore, consider a naive Monte Carlo simulation to compute the present value of this option and the following model and simulation parameters.
+Consider the Black-Scholes model allowing for a closed solution of a digital asset or nothing (up-and-in) option. Furthermore, consider a naive Monte Carlo simulation to compute the present value of this option.  
 
-    | Parameter | Description       | Value    |
-    |-----------|-------------------|----------|
-    | t_0       | initial time      | 0.0      |
-    | T         | time to maturity  | 1.0      |
-    | r         | risk-free rate    | 0.04     |
-    | q         | dividend  rate    | 0.0     |
-    | sigma     | volatility        | 0.3      |
-    | K         | strike price      | 50       |
-
-    | N         | MC samples        | 100k     |
-    | h         | finite dif. para. | 0.0001   |
-
-
-Please check the [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/IntroductoryExample/introductory_example_Colab.ipynb) to reproduce the results of the following images. The notebooks use PyTorch as the AAD framework.
+Please check the code given in the [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/IntroductoryExample/introductory_example_Colab.ipynb) to reproduce the results of the following images and for the used model and simulation parameters. The notebooks use PyTorch as the AAD framework.
 
 ### Present value comparison
 
