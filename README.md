@@ -109,9 +109,9 @@ While the creation of the pathwise sensitivities calculator for these options is
 
 If a stocastic AAD framework should handle the standard Monte Carlo estimator as an input and still be able to produce stable second-order Greeks, it would require to automatically handle the two arising discontinuities - in such a way as the Brownian-bridge correction and the one-step survival correction do. Also being time-consuming, it might be usable for other types of options, such as other types of barrier options (knock-in, knock-down-in/out etc.), as well e.g. for Bermudan American options, as studies in one of the articles by [Fries](http://christian-fries.de/finmath/stochasticautodiff/) and hence having some nice potential.
 
-## 4. Bias-Free Stable (BFS) Monte Carlo Estimators for Financial Instruments
+## 4. Bias-Free Stable (BFS) Monte Carlo estimators for financial instruments
 
-In this section, we will take an in-depth look at deriving Monte Carlo estimators from the perspective of various financial instruments. I'll denote Monte Carlo estimators that allows for stable FD and bias-free AAD (at least up to second order Greeks) by Bias-Free Stable (BFS) Monte Carlo estimators.
+In this section, we will take an in-depth look at deriving Monte Carlo estimators from the perspective of various financial instruments. I'll denote Monte Carlo estimators that allows for stable FD and bias-free AAD Greeks (at least up to second-order) by Bias-Free Stable (BFS) Monte Carlo estimators.
 
 Before jumping into the examples, let me refer to the monograph ["Quantitative Finance: Back to Basic Principles"](https://books.google.de/books?hl=en&lr=&id=rLsxBgAAQBAJ&oi=fnd&pg=PP1&ots=1wmraZ3t1W&sig=K-irQaky7v9VS-5QWLFuj5EjROQ&redir_esc=y#v=onepage&q&f=false) by Adil Reghai. In chapter 3 of this book, the author describes (coming from a PnL point of view) the validity of the Black & Scholes model for different instruments. While the chapter concludes that for some instruments (e.g. European Call options) the Black & Scholes is appropriate, I'll nevertheless try consider the payoff structure of these instruments in the following. There is a simple reason for this: even more complex instruments, for which a Monte Carlo estimator might be required, often have features of standard instruments.
 
