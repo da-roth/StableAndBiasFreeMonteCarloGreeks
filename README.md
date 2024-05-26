@@ -46,7 +46,7 @@ Let me highlight the key contributions from the literature that have shaped my i
 
  Stochastic automatic differentiation allows the user to have reasonable results even if inputing payoffs (e.g. with indicator functions) that would typically lead to biased-results. However, by construction, it is restricted to the specific set classes that were implemented. For example, consider the two-dimensional autocallable case within ["A Monte Carlo pricing algorithm for autocallables that allows for stable differentiation."](https://www.math.uni-frankfurt.de/~harrach/publications/StableDiffs.pdf). Here, we'd have to add the proposed transformation and perhaps a specific node on the graph that would allow the support of these kind of instruments.
 
-All in all, taking all these considerations into account, one topic I'll investigate in the following it the question on how to create new Monte Carlo estimators, that allow for bias-free Greeks using standard AAD.
+All in all, taking all these considerations into account, one topic I'll investigate in the following it the question on how to create new Monte Carlo estimators, that allow for bias-free Greeks using standard AAD. I'll denote Monte Carlo estimators that allows for stable FD and bias-free AAD Greeks (at least up to second-order) by Bias-Free Stable (BFS) Monte Carlo estimators.
 
 ## 2. Example: Continuation of digital call and barrier options
 
@@ -111,7 +111,7 @@ If a stocastic AAD framework should handle the standard Monte Carlo estimator as
 
 ## 4. Bias-Free Stable (BFS) Monte Carlo estimators for financial instruments
 
-In this section, we will take an in-depth look at deriving Monte Carlo estimators from the perspective of various financial instruments. I'll denote Monte Carlo estimators that allows for stable FD and bias-free AAD Greeks (at least up to second-order) by Bias-Free Stable (BFS) Monte Carlo estimators.
+In this section, we will take an in-depth look at deriving Monte Carlo estimators from the perspective of various financial instruments. 
 
 Before jumping into the examples, let me refer to the monograph ["Quantitative Finance: Back to Basic Principles"](https://books.google.de/books?hl=en&lr=&id=rLsxBgAAQBAJ&oi=fnd&pg=PP1&ots=1wmraZ3t1W&sig=K-irQaky7v9VS-5QWLFuj5EjROQ&redir_esc=y#v=onepage&q&f=false) by Adil Reghai. In chapter 3 of this book, the author describes (coming from a PnL point of view) the validity of the Black & Scholes model for different instruments. While the chapter concludes that for some instruments (e.g. European Call options) the Black & Scholes is appropriate, I'll nevertheless try consider the payoff structure of these instruments in the following. There is a simple reason for this: even more complex instruments, for which a Monte Carlo estimator might be required, often have features of standard instruments.
 
