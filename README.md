@@ -29,12 +29,11 @@ Please check the code given in the [Colab notebook](https://github.com/da-roth/S
 
  <img src="images/deltaClosedAndNaive.png" alt="Delta comparison" width="400" height="300">
 
- While the naive Monte Carlo approach shows the typical instabilities of Monte Carlo simulation for discontinuous payoff, the AAD applied to the naive approach does not suffer from instability, its results are biased.
+ The naive Monte Carlo approach shows the typical instabilities of Monte Carlo simulation for discontinuous payoff, the AAD applied to the naive approach does not suffer from instability, however its results are biased.
 
 ## 1. Introduction
 
-Let me highlight the key contributions from the literature that have shaped my investigations into stable and bias-free Greeks calculations using Monte Carlo methods. These articles cover foundational concepts, innovative techniques, and advancements in the stability of differentiation and sensitivity calculations for financial derivatives. While each paper contains a broad array of content, the following key points are especially pertinent to the focus of this page:
-
+Let me highlight the key contributions from the literature that have motivated my investigations into stable and bias-free Greeks computations using Monte Carlo methods. These articles cover fzundational concepts, innovative techniques, and advancements in the stability of differentiation and sensitivity calculations for financial derivatives. While each paper contains a broad array of content, the following key points are especially pertinent to the focus of this page:
 
 - ["A Monte Carlo pricing algorithm for autocallables that allows for stable differentiation."](https://www.math.uni-frankfurt.de/~harrach/publications/StableDiffs.pdf) by Alm et al.. In this work, section 2.3 formulates a definition of when a Monte Carlo estimator allows for stable differentiation through finite differences (FD). Additionally, the authors provide a theorem proving stability under specific assumptions.
 - ["Monte Carlo pathwise sensitivities for barrier options"](https://www.risk.net/journal-of-computational-finance/7533966/monte-carlo-pathwise-sensitivities-for-barrier-options) by my co-authors and me, introduces a transformation of the barrier option's payoff, enabling stable finite differences. We developed a framework that computes pathwise sensitivities successively, effectively replacing finite differences. [Algorithm 1](https://www.math.uni-frankfurt.de/~harrach/publications/pathwise.pdf) on page 9 of the article's preprint clearly illustrates the connection to ['forward accumulation'](https://en.wikipedia.org/wiki/Automatic_differentiation#Forward_and_reverse_accumulation) in autmatic differentiation.
@@ -52,21 +51,24 @@ All in all, taking all these considerations into account, one topic I'll investi
 
 ## 2. Example: Continuation of digital call and barrier options
 
-Instead of using the standard Monte Carlo estimator for digital options, let us use the well-known conditional expectation transformation, see e.g. [Monte Carlo methods in financial engineering](https://link.springer.com/book/10.1007/978-0-387-21617-1) by Glasserman.
+Instead of using the standard Monte Carlo estimator for digital options, let us use a well-known transformation, see e.g. [Monte Carlo methods in financial engineering](https://link.springer.com/book/10.1007/978-0-387-21617-1) by Glasserman, that also allows for pathwise sensitivities.
 Using this improved Monte Carlo estimator, we receive the following results for Delta:
 
 <img src="images/deltaAdvanced.png" alt="present value comparison" width="400" height="300">
 
-The images can be reproduced by executing the code given in this [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/ExampleIntrodcutoryContinued/example_continued_Colab.ipynb). It's relatively easy to show that the improved Monte Carlo estimator meets the assumptions of the theorem on stable Greeks by FD formulated by Alm et al., and hence the stable Delta by FD is not surprising. Furthermore, the improved Monte Carlo estimator indeed seems to allow for bias-free AAD.
+The images can be reproduced by executing the code given in this [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/ExampleIntrodcutoryContinued/example_continued_Colab.ipynb). It's relatively easy to show that the improved Monte Carlo estimator meets the assumptions of the theorem on stable Greeks by FD formulated by Alm et al., and hence the recovered stablity of Delta by FD is not surprising. Additionally, the improved Monte Carlo estimator indeed seems to allow for bias-free AAD.
 
 ### 2.1. Example: Barrier options
 
-Let's investigate the behaviour of FD and AAD for an up-and-out continuously-monitored barrier option call option. For the chosen parameters and to re-produce the results please check the [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/ExampleBarrier/example_barrier_Colab.ipynb).
-While I'll skip the investigation of the present value, the first property I'd like to point out here is as follows. Studying the results for Delta of FD and AAD, we get:
+While one might think the bias of above's example can be neglected, let's investigate the behaviour of FD and AAD for an up-and-out continuously-monitored barrier option call option, as a second introductional example. 
+
+Again, for the used parameters and to re-produce the results please check the [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/ExampleBarrier/example_barrier_Colab.ipynb).
+
+While I'll skip the investigation of the present value, the first property I'd like to point out here is as follows. Studying the results for Delta of FD and AAD of the standard Monte Carlo estimator, we obtain:
 
 <img src="images/deltaBarrierStandard.png" alt="present value comparison" width="400" height="300">
 
-While again FD leads to instabilities, AAD is biased in such a way that it might even have the wrong sign. The explanation is rather intuitive: While in general an increasing asset value S has positive impact on the 'vanilla' part of the payoff max(S-K,0), the AAD tool doesn't account in that an increasing asset value results in a greater knock-out probability. Hence, path that survived (not crossed the barrier), will always have positive Delta using standard AAD tools. 
+While again FD leads to instabilities, AAD is biased in such a way that for increasing initial asset values, the results have the wrong sign. The explanation is rather intuitive: While in general an increasing asset value S has positive impact on the 'vanilla' part of the payoff max(S-K,0), the AAD tool doesn't account in that an increasing asset value results in a greater knock-out probability. Hence, path that survived (not crossed the barrier), will always have positive Delta using standard AAD tools. 
 
 For barrier options, the commonly used Brownian-bridge approach, see e.g. [here](https://arxiv.org/abs/1906.11002) and reference therein, leads to the following results for Delta:
 
@@ -80,14 +82,13 @@ Hence, the Brownian-bridge correction, doesn't allow for stable Gamma for barrie
 
 If we use the newly propsed Monte Carlo estimator of ["Convergence of Milstein Brownian bridge Monte Carlo methods and stable Greeks calculation"](https://arxiv.org/abs/1906.11002), we get the following results for Gamma:
 
-
-Hence, the estimator not only allows for stabile Gamma through FD, but also results in stable Gamma through AAD.
+All in all, we found a BFS Monte Carlo estimator, as demonstrated in the following:
 
 <img src="images/gammaBarrierOSS.png" alt="present value comparison" width="400" height="300">
 
-Again, see this [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/ExampleBarrier/example_barrier_Colab.ipynb) to reproduce all the results.
+Again, see this [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/ExampleBarrier/example_barrier_Colab.ipynb) to reproduce all the results and to review the BFS Monte Carlo algorithm for barrier options.
 
-Summary: 
+Summary for barrier options: 
 1. While the payoff of the barrier option has a discontinuity 
 
 <img src="images/payoffBarrier.png">
@@ -100,7 +101,7 @@ given through max(S) < B, the standard Monte Carlo estimator for this payoff wou
 
 lead to a discontinuity within the first derivative, see e.g. (7.7) [here](http://people.maths.ox.ac.uk/~gilesm/files/sylvestre_thesis.pdf). 
 
-3. As seen in above's example, the Monte Carlo estimator proposed in ["Convergence of Milstein Brownian bridge Monte Carlo methods and stable Greeks calculation"](https://arxiv.org/abs/1906.11002), which allows for stable second-order Greeks through FD, also produced bias-free Greeks through AAD. As mentioned in the article, the estimator would also allow the usage of a pathwise sensitivities estimator, since it also got rid of the discontinuity of the first derivative. 
+3. As seen in above's example, the Monte Carlo estimator proposed in ["Convergence of Milstein Brownian bridge Monte Carlo methods and stable Greeks calculation"](https://arxiv.org/abs/1906.11002), which allows for stable second-order Greeks through FD, also produced bias-free Greeks through AAD. As a remark, as mentioned in the article, the estimator would also allow the usage of a pathwise sensitivities estimator, since it also got rid of the discontinuity of the first derivative. 
 
 
 ## 3. Connection between stable Greeks through FD and bias-free Greeks through AAD
@@ -109,11 +110,12 @@ Above's example for barrier options gives us a good intuition on the requirement
 
 While the creation of the pathwise sensitivities calculator for these options is rather time-consuming, one might prefer to create the Monte Carlo estimator in such a way that it allows for bias-free AAD and then use an AAD framework instead of implementing the pathwise-sensitivity algorithm, in practice. 
 
-If a stocastic AAD framework should handle the standard Monte Carlo estimator as an input and still be able to produce stable second-order Greeks, it would require to automatically handle the two arising discontinuities - in such a way as the Brownian-bridge correction and the one-step survival correction do. Also being time-consuming, it might be usable for other types of options, such as other types of barrier options (knock-in, knock-down-in/out etc.), as well e.g. for Bermudan American options, as studies in one of the articles by [Fries](http://christian-fries.de/finmath/stochasticautodiff/) and hence having some nice potential.
+If a stochastic AAD framework should handle the standard Monte Carlo estimator as an input and still be able to produce stable second-order Greeks, it would require to automatically handle the two arising discontinuities - in such a way as the Brownian-bridge correction and the one-step survival correction do. Also being time-consuming, it might be usable for other types of options, such as other types of barrier options (knock-in, knock-down-in/out etc.), as well e.g. for Bermudan American options, as studies in one of the articles by [Fries](http://christian-fries.de/finmath/stochasticautodiff/) and hence having some nice potential.
+
 
 ## 4. Bias-Free Stable (BFS) Monte Carlo estimators for general financial instruments
 
-In this section, we will take an in-depth look at deriving Monte Carlo estimators from the perspective of various financial instruments. 
+In this section, we will take an in-depth look at specific payoffs of various financial instruments try to derive a BFS Monte Carlo estimator. 
 
 1. European options: Even for the simple European Call option, we see that the naive Monte Carlo estimator results in infeasible Gamma somputation. The reason is again quite simple: The derivative of the maximum function contains an indicator function. In this case, intuitively speaking, the BFS Monte Carlo estimator can be derived by forcing the path to end above the strike price (and a proper normalization). For a European Call option, check out this [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/BFS_Examples/example_Europ_Call_Colab.ipynb).
 
