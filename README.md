@@ -4,13 +4,15 @@ In the realm of financial derivatives, accurate and stable computation of sensit
 
 In recent years, (adjoint)-automatic differentiation (AAD) has gained significant popularity for computing sensitivities, or Greeks, of financial derivatives. This method promises higher efficiency and accuracy compared to traditional finite difference (FD) approaches. Meanwhile, finite differences are still widely used in many established pricing systems, often employing the bump-and-reval technique to obtain Greeks. However, when applied to Monte Carlo simulations, particularly for options with discontinuous payoffs, both methods have their own sets of challenges and intricacies.
 
-Here, I'll look at various examples that illustrate the problem and also explore different approaches to overcome these issues. As a motivational example, let us directly study the issues of both methods when naively implementing a standard Monte Carlo estimator for simple digital options.
+Here, I'll look at various examples that illustrate stability and bias issues and also explore different approaches to overcome these. As a motivational example, let us directly study the issues of both methods when naively using the standard Monte Carlo estimator for simple digital options.
+
+Before jumping into the introductury examples, let me refer to the monograph ["Quantitative Finance: Back to Basic Principles"](https://books.google.de/books?hl=en&lr=&id=rLsxBgAAQBAJ&oi=fnd&pg=PP1&ots=1wmraZ3t1W&sig=K-irQaky7v9VS-5QWLFuj5EjROQ&redir_esc=y#v=onepage&q&f=false) by Adil Reghai. In chapter 3, the author describes (coming from a PnL point of view) the validity of the Black & Scholes model for different instruments. While the chapter concludes that for some instruments (e.g. European Call options) the Black & Scholes is appropriate, I'll nevertheless study Monte Carlo estimator for these payoffs, since components of these are often also used within more complex instruments (for which a Monte Carlo estimator might be required).
 
 ## 0. Introductary Example: Digital call option present value and Delta
 
-Consider the Black-Scholes model allowing for a closed solution of a digital asset or nothing (up-and-in) option. Furthermore, consider a naive Monte Carlo simulation to compute the present value of this option.  
+Consider the Black-Scholes model and a digital asset or nothing (up-and-in) option (closed solution available). Furthermore, consider a naive Monte Carlo simulation to compute the present value of this option.  
 
-Please check the code given in the [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/IntroductoryExample/introductory_example_Colab.ipynb) to reproduce the results of the following images and for the used model and simulation parameters. The notebooks use PyTorch as the AAD framework.
+Please check the code given in the [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/IntroductoryExample/introductory_example_Colab.ipynb) to reproduce the results of the following images and for the used model and simulation parameters. This notebook and the ones that will follow use PyTorch as the underlying AAD framework.
 
 ### Present value comparison
 
@@ -112,8 +114,6 @@ If a stocastic AAD framework should handle the standard Monte Carlo estimator as
 ## 4. Bias-Free Stable (BFS) Monte Carlo estimators for general financial instruments
 
 In this section, we will take an in-depth look at deriving Monte Carlo estimators from the perspective of various financial instruments. 
-
-Before jumping into the examples, let me refer to the monograph ["Quantitative Finance: Back to Basic Principles"](https://books.google.de/books?hl=en&lr=&id=rLsxBgAAQBAJ&oi=fnd&pg=PP1&ots=1wmraZ3t1W&sig=K-irQaky7v9VS-5QWLFuj5EjROQ&redir_esc=y#v=onepage&q&f=false) by Adil Reghai. In chapter 3 of this book, the author describes (coming from a PnL point of view) the validity of the Black & Scholes model for different instruments. While the chapter concludes that for some instruments (e.g. European Call options) the Black & Scholes is appropriate, I'll nevertheless try consider the payoff structure of these instruments in the following. There is a simple reason for this: even more complex instruments, for which a Monte Carlo estimator might be required, often have features of standard instruments.
 
 1. European options: Even for the simple European Call option, we see that the naive Monte Carlo estimator results in infeasible Gamma somputation. The reason is again quite simple: The derivative of the maximum function contains an indicator function. In this case, intuitively speaking, the BFS Monte Carlo estimator can be derived by forcing the path to end above the strike price (and a proper normalization). For a European Call option, check out this [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/BFS_Examples/example_Europ_Call_Colab.ipynb).
 
