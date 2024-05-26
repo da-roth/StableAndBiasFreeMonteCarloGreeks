@@ -61,7 +61,7 @@ Let me highlight the key contributions from the literature that have shaped my i
 
 All in all, taking all these considerations into account, one topic I'll investigate in the following it the question on how to create new Monte Carlo estimators, that allow for bias-free Greeks using standard AAD.
 
-## 2. Example: (Continuation of Introductary Example)
+## 2. Example: (Continuation of Introductary Example) and barrier options
 
 Instead of using the standard Monte Carlo estimator for digital options, let us use the well-known conditional expectation transformation, see e.g. [Monte Carlo methods in financial engineering](https://link.springer.com/book/10.1007/978-0-387-21617-1) by Glasserman.
 Using this improved Monte Carlo estimator, we receive the following results for Delta:
@@ -70,7 +70,7 @@ Using this improved Monte Carlo estimator, we receive the following results for 
 
 The images can be reproduced by executing the code given in this [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/ExampleIntrodcutoryContinued/example_continued_Colab.ipynb). It's relatively easy to show that the improved Monte Carlo estimator meets the assumptions of the theorem on stable Greeks by FD formulated by Alm et al., and hence the stable Delta by FD is not surprising. Furthermore, the improved Monte Carlo estimator indeed seems to allow for bias-free AAD.
 
-## 3. Example: Barrier options
+### 2.1. Example: Barrier options
 
 Let's investigate the behaviour of FD and AAD for an up-and-out continuously-monitored barrier option call option. For the chosen parameters and to re-produce the results please check the [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/ExampleBarrier/example_barrier_Colab.ipynb).
 While I'll skip the investigation of the present value, the first property I'd like to point out here is as follows. Studying the results for Delta of FD and AAD, we get:
@@ -114,7 +114,7 @@ lead to a discontinuity within the first derivative, see e.g. (7.7) [here](http:
 3. As seen in above's example, the Monte Carlo estimator proposed in ["Convergence of Milstein Brownian bridge Monte Carlo methods and stable Greeks calculation"](https://arxiv.org/abs/1906.11002), which allows for stable second-order Greeks through FD, also produced bias-free Greeks through AAD. As mentioned in the article, the estimator would also allow the usage of a pathwise sensitivities estimator, since it also got rid of the discontinuity of the first derivative. 
 
 
-## 4. Connection of stable Greeks through FD and bias-free Greeks through AAD
+## 3. Connection of stable Greeks through FD and bias-free Greeks through AAD
 
 Above's example for barrier options gives us a good intuition on the requirements of a Monte Carlo estimator to allow for bias-free Greeks through AAD. The intuitive explanation of the connection is as follows: A Monte Carlo estimator allows for bias-free Greeks up to a certain degree, if it is capable of computing these Greeks through a pathwise-sensitivity algorithm. The studies in ["Convergence of Milstein Brownian bridge Monte Carlo methods and stable Greeks calculation"](https://arxiv.org/abs/1906.11002) indicate that this is the case if the Monte Carlo estimator allows for stable Greeks through FD.
 
@@ -122,7 +122,7 @@ While the creation of the pathwise sensitivities calculator for these options is
 
 If a stocastic AAD framework should handle the standard Monte Carlo estimator as an input and still be able to produce stable second-order Greeks, it would require to automatically handle the two arising discontinuities - in such a way as the Brownian-bridge correction and the one-step survival correction do. Also being time-consuming, it might be usable for other types of options, such as other types of barrier options (knock-in, knock-down-in/out etc.), as well e.g. for Bermudan American options, as studies in one of the articles by [Fries](http://christian-fries.de/finmath/stochasticautodiff/) and hence having some nice potential.
 
-## 5. Bias-Free Stable (BFS) Monte Carlo Estimators for Financial Instruments
+## 4. Bias-Free Stable (BFS) Monte Carlo Estimators for Financial Instruments
 
 In this section, we will take an in-depth look at deriving Monte Carlo estimators from the perspective of various financial instruments. I'll denote Monte Carlo estimators that allows for stable FD and bias-free AAD (at least up to second order Greeks) by Bias-Free Stable (BFS) Monte Carlo estimators.
 
