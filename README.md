@@ -101,7 +101,7 @@ lead to a discontinuity within the first derivative, see e.g. (7.7) [here](http:
 3. As seen in above's example, the Monte Carlo estimator proposed in ["Convergence of Milstein Brownian bridge Monte Carlo methods and stable Greeks calculation"](https://arxiv.org/abs/1906.11002), which allows for stable second-order Greeks through FD, also produced bias-free Greeks through AAD. As mentioned in the article, the estimator would also allow the usage of a pathwise sensitivities estimator, since it also got rid of the discontinuity of the first derivative. 
 
 
-## 3. Connection of stable Greeks through FD and bias-free Greeks through AAD
+## 3. Connection between stable Greeks through FD and bias-free Greeks through AAD
 
 Above's example for barrier options gives us a good intuition on the requirements of a Monte Carlo estimator to allow for bias-free Greeks through AAD. The intuitive explanation of the connection is as follows: A Monte Carlo estimator allows for bias-free Greeks up to a certain degree, if it is capable of computing these Greeks through a pathwise-sensitivity algorithm. The studies in ["Convergence of Milstein Brownian bridge Monte Carlo methods and stable Greeks calculation"](https://arxiv.org/abs/1906.11002) indicate that this is the case if the Monte Carlo estimator allows for stable Greeks through FD.
 
