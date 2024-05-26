@@ -109,7 +109,7 @@ While the creation of the pathwise sensitivities calculator for these options is
 
 If a stocastic AAD framework should handle the standard Monte Carlo estimator as an input and still be able to produce stable second-order Greeks, it would require to automatically handle the two arising discontinuities - in such a way as the Brownian-bridge correction and the one-step survival correction do. Also being time-consuming, it might be usable for other types of options, such as other types of barrier options (knock-in, knock-down-in/out etc.), as well e.g. for Bermudan American options, as studies in one of the articles by [Fries](http://christian-fries.de/finmath/stochasticautodiff/) and hence having some nice potential.
 
-## 4. Bias-Free Stable (BFS) Monte Carlo estimators for financial instruments
+## 4. Bias-Free Stable (BFS) Monte Carlo estimators for general financial instruments
 
 In this section, we will take an in-depth look at deriving Monte Carlo estimators from the perspective of various financial instruments. 
 
