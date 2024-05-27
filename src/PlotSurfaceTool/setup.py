@@ -11,7 +11,6 @@ setup(
     author='Daniel Roth',
     author_email='danielroth@posteo.eu',
     description='A package for evaluating and plotting functions.',
-    long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     url='https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/tree/main/src/PlotSurfaceTool',  
     classifiers=[
