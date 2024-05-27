@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 from .FunctionEvaluationHelper import FunctionEvaluationHelper
+from .OutputStatistic import OutputStatistic    
 
 class PlotSurfaceTool:
     @staticmethod
