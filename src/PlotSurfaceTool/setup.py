@@ -12,7 +12,7 @@ setup(
     author_email='danielroth@posteo.eu',
     description='A package for evaluating and plotting functions.',
     long_description_content_type='text/markdown',
-    url='https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/tree/main/src/PlotSurfaceTool',  
+    url='https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/src/PlotSurfaceTool',  
     classifiers=[
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',
