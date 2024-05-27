@@ -1,3 +1,3 @@
-from .FunctionEvaluationHelper import FunctionEvaluationHelper
-from .PlotSettings import OutputStatistic, PlotSettings
-from .PlotSurfaceTool import PlotSurfaceTool
+from .FunctionEvaluationHelper import *
+from .PlotSettings import *
+from .PlotSurfaceTool import *
