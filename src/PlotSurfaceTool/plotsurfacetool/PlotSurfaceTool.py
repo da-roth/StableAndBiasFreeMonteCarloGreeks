@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from .evaluation import FunctionEvaluationHelper
+from .FunctionEvaluationHelper import FunctionEvaluationHelper
 
 class PlotSurfaceTool:
     @staticmethod
