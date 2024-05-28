@@ -10,7 +10,7 @@ I will begin by presenting various examples that illustrate stability and bias i
 
 Before jumping into the introductury examples, let me refer to the monograph ["Quantitative Finance: Back to Basic Principles"](https://books.google.de/books?hl=en&lr=&id=rLsxBgAAQBAJ&oi=fnd&pg=PP1&ots=1wmraZ3t1W&sig=K-irQaky7v9VS-5QWLFuj5EjROQ&redir_esc=y#v=onepage&q&f=false) by Adil Reghai. In chapter 3, the author describes (coming from a PnL point of view) the validity of the Black & Scholes model for different instruments. While the chapter concludes that for some instruments (e.g. European Call options) the Black & Scholes is appropriate, I'll nevertheless study Monte Carlo estimator for these payoffs, since components of these are often also used within more complex instruments (for which a Monte Carlo estimator might be required).
 
-## 0. Introductary Example: Digital call option present value and Delta
+## 0. Introductary Example: Digital call options: biased and instable Greeks using standard Monte Carlo
 
 Consider the Black-Scholes model and a digital asset or nothing (up-and-in) option (closed solution available). Furthermore, consider a naive Monte Carlo simulation to compute the present value of this option.  
 
@@ -54,7 +54,7 @@ The idea of adding a stochastic node to automatic differentiation algorithms is 
 
 Taking these considerations into account, I will investigate two main topics. First, I will explore how to develop a method for post-processing AAD recordings using the concept of adding a stochastic node. Second, I will examine how to create new Monte Carlo estimators that provide stable finite difference (FD) and bias-free AAD Greeks, at least up to the second order. I will refer to these as Bias-Free Stable (BFS) Monte Carlo estimators.
 
-## 2. Example: Continuation of digital call and barrier options
+## 2. Example: Bias-Free Stable (BFS) Monte Carlo estimators for digital and barrier options
 
 Instead of using the standard Monte Carlo estimator for digital options, let us use a well-known transformation, see e.g. [Monte Carlo methods in financial engineering](https://link.springer.com/book/10.1007/978-0-387-21617-1) by Glasserman, that also allows for pathwise sensitivities.
 Using this improved Monte Carlo estimator, we receive the following results for Delta:
