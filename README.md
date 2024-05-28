@@ -130,7 +130,7 @@ Let me introduce a lightweight Python package, that will make the investigation 
 
 2. Digital options: Discussed in the introductory example. [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/BFS_Examples/bfs_digital_colab.ipynb)
 
-3. Barrier options: Discussed in section 2. [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/Examples_Introduction/example_barrier_Colab.ipynb)
+3. Barrier options: Discussed in section 2. [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/BFS_Examples/bfs_barrier_colab.ipynb)
 
 
 
