@@ -127,7 +127,7 @@ Let me introduce a lightweight Python package, that will make the investigation 
 ### 3.2. BFS Monte Carlo estimators
 
 1. European options: Even for the simple European Call option, we see that the naive Monte Carlo estimator results in infeasible Gamma computation. The reason is again quite simple: The derivative of the maximum function contains an indicator function. In this case, intuitively speaking, the BFS Monte Carlo estimator can be derived by forcing the path to end above the strike price (and a proper normalization).
-
+     
      [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/BFS_Examples/bfs_europ_call_colab.ipynb).
 
 2. Digital options: [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/BFS_Examples/bfs_digital_colab.ipynb)
