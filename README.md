@@ -118,7 +118,7 @@ While creating the pathwise sensitivities calculator for these options can be ti
 
 In this section, we will take an in-depth look at specific payoffs of various financial instruments try to derive a BFS Monte Carlo estimator. 
 
-### 3.1. Helper package
+### 3.1. Helper package plotsurfacetool
 
 Let me introduce a lightweight Python package, that will make the investigation of the upcoming algortihms easier. Within the notebooks of section 1, all image-generating methods are also contained in the code, which makes the investigation somewhat cumbersome. The [package](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/tree/main/src/PlotSurfaceTool) within src/PlotSurfaceTool was also publihsed to PyPi and can just be installed using pip. It has a class PlotSettings, which allows some modifications such as finite differences step-width and wished output statistics (PV, Delta, Gamma). The PlotSettings object ist passed together with a lambda function, of the method that should be investigated, to the static method PlotSufaceTool.Run, as e.g. shown here:
 
@@ -126,7 +126,7 @@ Let me introduce a lightweight Python package, that will make the investigation 
 
 ### 3.2. BFS Monte Carlo estimators
 
-1. European options: Even for the simple European Call option, we see that the naive Monte Carlo estimator results in infeasible Gamma computation. The reason is again quite simple: The derivative of the maximum function contains an indicator function. In this case, intuitively speaking, the BFS Monte Carlo estimator can be derived by forcing the path to end above the strike price (and a proper normalization). For a European Call option, check out this [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/BFS_Examples/example_Europ_Call_Colab.ipynb).
+1. European options: Even for the simple European Call option, we see that the naive Monte Carlo estimator results in infeasible Gamma computation. The reason is again quite simple: The derivative of the maximum function contains an indicator function. In this case, intuitively speaking, the BFS Monte Carlo estimator can be derived by forcing the path to end above the strike price (and a proper normalization). For a European Call option, check out this [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/BFS_Examples/bfs_europ_call_colab.ipynb).
 
 2. Digital options: Discussed in the introductory example. [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/Examples_Introduction/example_continued_Colab.ipynb)
 
