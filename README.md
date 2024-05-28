@@ -108,17 +108,17 @@ lead to a discontinuity within the first derivative, see e.g. (7.7) [here](http:
 
 3. As seen in above's example, the Monte Carlo estimator proposed in ["Convergence of Milstein Brownian bridge Monte Carlo methods and stable Greeks calculation"](https://arxiv.org/abs/1906.11002), which allows for stable second-order Greeks through FD, also produced bias-free Greeks through AAD. As a remark, as mentioned in the article, the estimator would also allow the usage of a pathwise sensitivities estimator, since it also got rid of the discontinuity of the first derivative. 
 
-## 3. Connection between stable Greeks through FD and bias-free Greeks through AAD
+## 3. Relationship between stable Greeks through FD and bias-free Greeks through AAD
 
-Above's example for barrier options gives us a good intuition on the requirements of a Monte Carlo estimator to allow for bias-free Greeks through AAD. The intuitive explanation of the connection is as follows: A Monte Carlo estimator allows for bias-free Greeks up to a certain degree, if it is capable of computing these Greeks through a pathwise-sensitivity algorithm. The studies in ["Convergence of Milstein Brownian bridge Monte Carlo methods and stable Greeks calculation"](https://arxiv.org/abs/1906.11002) indicate that this is the case if the Monte Carlo estimator allows for stable Greeks through FD.
+The example of digital and barrier options above provide a good intuition for the requirements of a Monte Carlo estimator to allow for bias-free Greeks through AAD. A simplified intuitive explanation is as follows: A Monte Carlo estimator can yield bias-free Greeks up to a certain degree if it is capable of computing these Greeks through a pathwise-sensitivity algorithm. The studies in ["Convergence of Milstein Brownian bridge Monte Carlo methods and stable Greeks calculation"](https://arxiv.org/abs/1906.11002) indicate that this is the case if the Monte Carlo estimator allows for stable Greeks through FD.
 
-While the creation of the pathwise sensitivities calculator for these options is rather time-consuming, one might prefer to create the Monte Carlo estimator in such a way that it allows for bias-free AAD and then use an AAD framework instead of implementing the pathwise-sensitivity algorithm, in practice. 
+While creating the pathwise sensitivities calculator for these options can be time-consuming, it may be preferable to design the Monte Carlo estimator to allow for bias-free AAD. Then, instead of implementing the pathwise-sensitivity algorithm, one can use an unmodified AAD framework of choice.
 
 ## 4. Bias-Free Stable (BFS) Monte Carlo estimators for various financial instruments
 
 In this section, we will take an in-depth look at specific payoffs of various financial instruments try to derive a BFS Monte Carlo estimator. 
 
-1. European options: Even for the simple European Call option, we see that the naive Monte Carlo estimator results in infeasible Gamma somputation. The reason is again quite simple: The derivative of the maximum function contains an indicator function. In this case, intuitively speaking, the BFS Monte Carlo estimator can be derived by forcing the path to end above the strike price (and a proper normalization). For a European Call option, check out this [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/BFS_Examples/example_Europ_Call_Colab.ipynb).
+1. European options: Even for the simple European Call option, we see that the naive Monte Carlo estimator results in infeasible Gamma computation. The reason is again quite simple: The derivative of the maximum function contains an indicator function. In this case, intuitively speaking, the BFS Monte Carlo estimator can be derived by forcing the path to end above the strike price (and a proper normalization). For a European Call option, check out this [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/BFS_Examples/example_Europ_Call_Colab.ipynb).
 
 2. Digital options: Discussed in the introductory example. [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/ExampleIntrodcutoryContinued/example_continued_Colab.ipynb)
 
