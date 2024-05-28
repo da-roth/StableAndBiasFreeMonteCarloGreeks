@@ -14,7 +14,7 @@ Before jumping into the introductury examples, let me refer to the monograph ["Q
 
 Consider the Black-Scholes model and a digital asset or nothing (up-and-in) option (closed solution available). Furthermore, consider a naive Monte Carlo simulation to compute the present value of this option.  
 
-Please check the code given in the [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/IntroductoryExample/introductory_example_Colab.ipynb) to reproduce the results of the following images and for the used model and simulation parameters. This notebook and the ones that will follow use PyTorch as the underlying AAD framework.
+Please check the code given in the [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/Examples_Introduction/IntroductoryExample/introductory_example_Colab.ipynb) to reproduce the results of the following images and for the used model and simulation parameters. This notebook and the ones that will follow use PyTorch as the underlying AAD framework.
 
 ### Present value comparison
 
@@ -61,13 +61,13 @@ Using this improved Monte Carlo estimator, we receive the following results for 
 
 <img src="images/deltaAdvanced.png" alt="present value comparison" width="400" height="300">
 
-The images can be reproduced by executing the code given in this [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/ExampleIntrodcutoryContinued/example_continued_Colab.ipynb). It's relatively easy to show that the improved Monte Carlo estimator meets the assumptions of the theorem on stable Greeks by FD formulated by Alm et al., and hence the recovered stablity of Delta by FD is not surprising. Additionally, the improved Monte Carlo estimator indeed seems to allow for bias-free AAD.
+The images can be reproduced by executing the code given in this [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/Examples_Introduction/ExampleIntrodcutoryContinued/example_continued_Colab.ipynb). It's relatively easy to show that the improved Monte Carlo estimator meets the assumptions of the theorem on stable Greeks by FD formulated by Alm et al., and hence the recovered stablity of Delta by FD is not surprising. Additionally, the improved Monte Carlo estimator indeed seems to allow for bias-free AAD.
 
 ### 1.2. Example: Barrier options
 
 While one might think the bias of above's example can be neglected, let's investigate the behaviour of FD and AAD for an up-and-out continuously-monitored barrier option call option, as a second introductional example. 
 
-Again, for the used parameters and to re-produce the results please check the [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/ExampleBarrier/example_barrier_Colab.ipynb).
+Again, for the used parameters and to re-produce the results please check the [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/Examples_Introduction/ExampleBarrier/example_barrier_Colab.ipynb).
 
 While I'll skip the investigation of the present value, the first property I'd like to point out here is as follows. Studying the results for Delta of FD and AAD of the standard Monte Carlo estimator, we obtain:
 
@@ -91,7 +91,7 @@ All in all, we found a BFS Monte Carlo estimator, as demonstrated in the followi
 
 <img src="images/gammaBarrierOSS.png" alt="present value comparison" width="400" height="300">
 
-Again, see this [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/ExampleBarrier/example_barrier_Colab.ipynb) to reproduce all the results and to review the BFS Monte Carlo algorithm for barrier options.
+Again, see this [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/Examples_Introduction/ExampleBarrier/example_barrier_Colab.ipynb) to reproduce all the results and to review the BFS Monte Carlo algorithm for barrier options.
 
 Summary for barrier options: 
 1. While the payoff of the barrier option has a discontinuity 
@@ -118,11 +118,19 @@ While creating the pathwise sensitivities calculator for these options can be ti
 
 In this section, we will take an in-depth look at specific payoffs of various financial instruments try to derive a BFS Monte Carlo estimator. 
 
+### 3.1. Helper package
+
+Let me introduce a lightweight Python package, that will make the investigation of the upcoming algortihms easier. Within the notebooks of section 1, all image-generating methods are also contained in the code, which makes the investigation somewhat cumbersome. The [package](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/tree/main/src/PlotSurfaceTool) within src/PlotSurfaceTool was also publihsed to PyPi and can just be installed using pip. It has a class PlotSettings, which allows some modifications such as finite differences step-width and wished output statistics (PV, Delta, Gamma). The PlotSettings object ist passed together with a lambda function, of the method that should be investigated, to the static method PlotSufaceTool.Run, as e.g. shown here:
+
+<img src="images/plotsurfacetool.png">
+
+### 3.2. BFS Monte Carlo estimators
+
 1. European options: Even for the simple European Call option, we see that the naive Monte Carlo estimator results in infeasible Gamma computation. The reason is again quite simple: The derivative of the maximum function contains an indicator function. In this case, intuitively speaking, the BFS Monte Carlo estimator can be derived by forcing the path to end above the strike price (and a proper normalization). For a European Call option, check out this [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/BFS_Examples/example_Europ_Call_Colab.ipynb).
 
-2. Digital options: Discussed in the introductory example. [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/ExampleIntrodcutoryContinued/example_continued_Colab.ipynb)
+2. Digital options: Discussed in the introductory example. [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/Examples_Introduction/ExampleIntrodcutoryContinued/example_continued_Colab.ipynb)
 
-3. Barrier options: Discussed in section 2. [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/ExampleBarrier/example_barrier_Colab.ipynb)
+3. Barrier options: Discussed in section 2. [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/Examples_Introduction/ExampleBarrier/example_barrier_Colab.ipynb)
 
 
 
