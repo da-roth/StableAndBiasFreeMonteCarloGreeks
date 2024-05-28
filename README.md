@@ -133,6 +133,12 @@ Let me introduce a lightweight Python package, that will make the investigation 
 
 3. Barrier options: [Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/BFS_Examples/bfs_barrier_colab.ipynb)
 
+## 4. BFS re-construction by a posteriori AAD graph modifications
+
+TBA
+
+[Colab notebook](https://github.com/da-roth/StableAndBiasFreeMonteCarloGreeks/blob/main/src/AAD_Graph_modification/graph_modification_digital_colab.ipynb)
+
 
 
 
